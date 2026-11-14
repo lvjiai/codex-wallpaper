@@ -28,7 +28,7 @@ $output = Join-Path $project 'dist'
 foreach ($directory in @($output, (Join-Path $stage 'runtime'), (Join-Path $stage 'scripts'), (Join-Path $stage 'vendor'))) {
     New-Item -ItemType Directory -Force -Path $directory | Out-Null
 }
-foreach ($entry in @('.codex-plugin', 'src', 'Install.cmd', 'README.md')) {
+foreach ($entry in @('.codex-plugin', 'src', 'Install.cmd', 'README.md', 'README.en.md')) {
     Copy-Item -LiteralPath (Join-Path $project $entry) -Destination $stage -Recurse
 }
 Copy-Item -LiteralPath (Join-Path $project 'vendor\webwallgl') -Destination (Join-Path $stage 'vendor') -Recurse
