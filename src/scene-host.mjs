@@ -10,6 +10,7 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 function inside(root, relative) {
   if (!relative || relative.split('/').some(part => !part || part === '.' || part === '..' || /[:\\]/.test(part))) return null;
   try {
+    // Resolve filesystem links before checking containment so they cannot escape the allowed root.
     const filename = realpathSync(path.join(root, ...relative.split('/')));
     const child = path.relative(root, filename);
     if (!child || child === '..' || child.startsWith('..' + path.sep) || path.isAbsolute(child)) return null;
@@ -60,6 +61,7 @@ export async function prepareScene(client, project, fps, config) {
     if (sessionId && !detached) await client.call('Target.detachFromTarget', { sessionId }).catch(() => {});
   };
   try {
+    // Chromium attaches the sandbox as a separate target. Match both its blob URL and parent frame.
     let target;
     for (let attempt = 0; attempt < 60 && !target; ++attempt) {
       const { targetInfos } = await client.call('Target.getTargets', { filter: [{ type: 'iframe' }, { exclude: true }] });
@@ -92,6 +94,7 @@ export async function prepareScene(client, project, fps, config) {
         const file = name.startsWith('/project/') ? inside(root, name.slice('/project/'.length)) :
           assets && name.startsWith('/api/local-assets/local/') ? inside(assets.root, name.slice('/api/local-assets/local/'.length)) : null;
         if (!file) { await evaluate('globalThis.__wallpaperReadResult(' + id + ', null)'); return; }
+        // Pass a browser File handle to the renderer so large scene packages stay off the CDP wire.
         const input = await call('Runtime.evaluate', {
           contextId, expression: "Object.assign(document.createElement('input'), {type:'file'})",
         });

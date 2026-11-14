@@ -1,5 +1,7 @@
 # Codex Wallpaper
 
+简体中文 · [English](README.en.md)
+
 Windows ChatGPT 桌面端的 Wallpaper Engine 动态背景插件。支持在应用内播放创意工坊视频和实时场景、创建轮播列表及设置过场。
 
 ## 安装 Windows 发行包

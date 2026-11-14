@@ -150,6 +150,7 @@ export class SceneController {
       await Promise.all(previous.map(scene => scene.dispose()));
       return resolution;
     }
+    // Wait for every window so a failure can release each successfully prepared scene.
     const prepared = await Promise.allSettled(this.clients.map(client => prepareScene(client, item.project, fps, config)));
     const scenes = prepared.filter(result => result.status === 'fulfilled').map(result => result.value);
     try {

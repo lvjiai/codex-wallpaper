@@ -82,6 +82,7 @@ export function installBackground({ appearance, volume = 0 } = {}, surfaceCss = 
       releaseMedia(cover);
       return;
     }
+    // Keep the outgoing media alive above the new layer until the transition finishes.
     transitionCover = cover;
     cover.style.zIndex = '1';
     cover.dataset.wallpaperTransition = kind;
@@ -162,6 +163,7 @@ export function installBackground({ appearance, volume = 0 } = {}, surfaceCss = 
       element.setAttribute('sandbox', 'allow-scripts');
       element.setAttribute('allow', 'autoplay');
       element.tabIndex = -1;
+      // The frame needs a layout size while WebWallGL prepares its first frame.
       element.style.cssText = 'position:absolute;inset:0;border:0;pointer-events:none;opacity:0.001';
       element.src = URL.createObjectURL(new Blob(['<!doctype html><title>Codex Wallpaper</title><body>'], { type: 'text/html' }));
       scenes.set(element.src, element);
