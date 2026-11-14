@@ -1,0 +1,11 @@
+/references/
+/bin/
+/outputs/
+/research/transparency-probe/*
+!/research/transparency-probe/Probe.cs
+/research/source-inspection/
+*.user
+*.suo
+/work/
+/dist/
+/.state/

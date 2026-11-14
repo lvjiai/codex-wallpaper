@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "codex-wallpaper": {
+      "command": "node",
+      "args": ["./src/mcp.mjs"],
+      "cwd": "."
+    }
+  }
+}
