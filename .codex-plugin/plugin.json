@@ -1,6 +1,6 @@
 {
   "name": "codex-wallpaper",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "从本机 Wallpaper Engine 选择场景和视频壁纸，作为 Windows Codex 的动态背景。",
   "mcpServers": "./.mcp.json",
   "requires_local_executor": true,
